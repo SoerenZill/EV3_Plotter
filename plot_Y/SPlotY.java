@@ -56,7 +56,6 @@ class SPlotY extends Thread{
      * If touched mPlotY stops.
      */
     public void run(){
-        LCD.drawString("Thread started", 1, 1);
         while (checkSPlotY) {
 
             //Get sensor value; value will be stored in sPlotResult[0]
@@ -66,12 +65,20 @@ class SPlotY extends Thread{
             if (sPlotYResult[0] > 0.5 /*value ether 0.0 or 1.0*/ ) {
                 //Stop movement
                 getMPlotY().stopMPlotY();
+                //Move MPlotY backward to avoid touching the sensor permanently
                 getMPlotY().moveMPlotYByDegree(MPlotY.Direction.backward, 200, 50);
+                try {
+                    Thread.sleep(100);
+                }catch (InterruptedException e) {
+                    System.out.println(e);
+                }
             }
 
             try {
                 Thread.sleep(10);
-            }catch (InterruptedException ignored) { }
+            }catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
         }
     }
 }
