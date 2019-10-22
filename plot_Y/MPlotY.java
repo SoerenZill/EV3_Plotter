@@ -9,6 +9,8 @@ import lejos.robotics.RegulatedMotor;
  */
 public class MPlotY {
 
+    final double CONVERT_VALUE = 31.25;
+
     // Direction pattern, forward:  -> Brick, backward:  <- brick
     public enum Direction {
         forward,
@@ -57,6 +59,19 @@ public class MPlotY {
             mPlotY.forward();
         }else if (direction == Direction.backward){
             mPlotY.backward();
+        }
+    }
+
+    public void move(Direction dir, int mm, int ms) {
+
+        mPlotY.setSpeed(200);
+
+        int degree = (int) (mm * CONVERT_VALUE);
+
+        if (dir == Direction.forward) {
+            mPlotY.rotate(degree);
+        } else if (dir == Direction.backward) {
+            mPlotY.rotate((degree * -1));
         }
     }
 
