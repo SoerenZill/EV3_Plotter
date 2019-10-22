@@ -1,9 +1,14 @@
 import lejos.hardware.lcd.LCD;
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.port.MotorPort;
+import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
+import lejos.robotics.RegulatedMotor;
+import lejos.utility.Delay;
 import plot_Y.MPlotY;
-/*
+
 class MConyeyerX {
 
 	RegulatedMotor mConveyerX = new EV3LargeRegulatedMotor(MotorPort.A); // motor conveyer line x angle
@@ -34,18 +39,17 @@ class MConyeyerX {
 	}
 
 }
-*/
 
 class ColorSensor {
 
 	EV3ColorSensor color_sensor = new EV3ColorSensor(SensorPort.S1);
-	SensorMode ambientSensorMode = color_sensor.getRGBMode(); // RGB code
+	SensorMode ambientSensorMode = color_sensor.getColorIDMode(); // RGB code
 
 	float[] sample = new float[ambientSensorMode.sampleSize()]; // create array of size of return value sensor
 
 	public ColorSensor() {
 		color_sensor.setFloodlight(false);
-		LCD.drawString("Init Col Sensor", 2, 2);
+		LCD.drawString("Init", 2, 2);
 		LCD.setAutoRefresh(false);
 
 	}
@@ -54,9 +58,7 @@ class ColorSensor {
 		ambientSensorMode.fetchSample(sample, 0);
 		LCD.refresh();
 		LCD.clear();
-		LCD.drawString("RGB: " + sample[0], 1, 1);
-		LCD.drawString("     " + sample[1], 1, 2);
-		LCD.drawString("     " + sample[2], 1, 3);
+		LCD.drawString("Intensity: " + sample[0], 1, 1);
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -77,8 +79,8 @@ public class Dummy {
 	public static void main(String[] args) {
 		LCD.drawString("Init", 1, 1);
 		ColorSensor ColSensor = new ColorSensor();
-		float[] rgb = ColSensor.getRGBCode();
-		// LCD.drawString("RGB: " + x[0] + ", " + x[1] + ", " + x[2], 1, 1);
+		float[] x = ColSensor.getRGBCode();
+		LCD.drawString(x.toString(), 1, 1);
 		MPlotY PenY = new MPlotY();
 
 		// TODO Auto-generated method stub
