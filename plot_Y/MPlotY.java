@@ -9,52 +9,66 @@ import lejos.robotics.RegulatedMotor;
  */
 public class MPlotY {
 
-	// Direction pattern
-	enum Direction {
-		forward, backward
-	}
+    // Direction pattern, forward:  -> Brick, backward:  <- brick
+    enum Direction {
+        forward,
+        backward
+    }
 
-	// Motor: Plotter axis Y
-	RegulatedMotor mPlotY;
+    //Motor: Plotter axis Y
+    RegulatedMotor mPlotY;
 
-	// Sensor: Plotter axis Y, touch sensor, detecting basic position
-	SPlotY sPlotY;
+    //Sensor: Plotter axis Y, touch sensor, detecting basic position
+    SPlotY sPlotY;
 
-	/**
-	 * Constructor: MPlotY
-	 *
-	 * 1. initialising mPlotY, sPlotY 2. go to basic position
-	 */
-	public MPlotY() {
-		mPlotY = new EV3LargeRegulatedMotor(MotorPort.C);
+    /**
+     * Constructor: MPlotY
+     *
+     * 1. initialising mPlotY, sPlotY
+     * 2. go to basic position
+     */
+    public MPlotY() {
+        mPlotY = new EV3LargeRegulatedMotor(MotorPort.C);
 
-		sPlotY = new SPlotY(this);
+        sPlotY = new SPlotY(this);
 
-		moveMPlotY(Direction.forward, 20); // Move to ground position
+        moveMPlotY(Direction.forward, 20);  //Move to ground position
 
-	}
+    }
 
-	/**
-	 * Stop movement, axis Y
-	 */
-	void stopMPlotY() {
-		mPlotY.stop();
-	}
+    /**
+     * Stop movement, axis Y
+     */
+    void stopMPlotY() {
+        mPlotY.stop();
+    }
 
-	/**
-	 *
-	 * @param direction direction of movement, use .forward / .backward
-	 * @param speed     speed of movement, range 0..5 TODO change to proper value
-	 */
-	void moveMPlotY(Direction direction, int speed) {
 
-		mPlotY.setSpeed(speed);
+    /**
+     *
+     * @param direction direction of movement, use .forward / .backward
+     * @param speed speed of movement, range 0..5 TODO change to proper value
+     */
+    void moveMPlotY(Direction direction, int speed) {
 
-		if (direction == Direction.forward) {
-			mPlotY.forward();
-		} else if (direction == Direction.backward) {
-			mPlotY.backward();
-		}
-	}
+        mPlotY.setSpeed(speed);
+
+        if (direction == Direction.forward) {
+            mPlotY.forward();
+        }else if (direction == Direction.backward){
+            mPlotY.backward();
+        }
+    }
+
+    void moveMPlotYByDegree(Direction direction, int speed, int angle){
+
+        mPlotY.setSpeed(speed);
+
+        if (direction == Direction.forward) {
+            mPlotY.rotate(angle);
+        }else if (direction == Direction.backward){
+            mPlotY.rotate((angle * -1));
+        }
+    }
 
 }
