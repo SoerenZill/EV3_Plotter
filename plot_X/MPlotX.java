@@ -25,7 +25,7 @@ public class MPlotX {
 	/**
 	 * Pulls the paper out of the Plotter
 	 */
-	void throwOutPaper() {
+	public void throwOutPaper() {
 		mPlotX.setSpeed(400);
 		mPlotX.rotate(-2500);
 	}
@@ -43,12 +43,12 @@ public class MPlotX {
 		}
 	}
 
-	int getLocation() {
+	public int getLocation() {
 		mPlotX.resetTachoCount();
 		return mPlotX.getTachoCount();
 	}
 
-	void MoveXDegreeInYDegreePerSecond(int degree, int degreePerSecond) {
+	public void MoveXDegreeInYDegreePerSecond(int degree, int degreePerSecond) {
 		LCD.drawString(mPlotX.getMaxSpeed() + "", 0, 4);
 		Delay.msDelay(5000);
 		mPlotX.setSpeed(degreePerSecond);

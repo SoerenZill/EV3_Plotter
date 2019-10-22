@@ -10,7 +10,7 @@ import lejos.robotics.RegulatedMotor;
 public class MPlotY {
 
     // Direction pattern, forward:  -> Brick, backward:  <- brick
-    enum Direction {
+    public enum Direction {
         forward,
         backward
     }
@@ -39,7 +39,7 @@ public class MPlotY {
     /**
      * Stop movement, axis Y
      */
-    void stopMPlotY() {
+    public void stopMPlotY() {
         mPlotY.stop();
     }
 
@@ -49,7 +49,7 @@ public class MPlotY {
      * @param direction direction of movement, use .forward / .backward
      * @param speed speed of movement, range 0..5 TODO change to proper value
      */
-    void moveMPlotY(Direction direction, int speed) {
+    public void moveMPlotY(Direction direction, int speed) {
 
         mPlotY.setSpeed(speed);
 
@@ -60,7 +60,7 @@ public class MPlotY {
         }
     }
 
-    void moveMPlotYByDegree(Direction direction, int speed, int angle){
+    public void moveMPlotYByDegree(Direction direction, int speed, int angle){
 
         mPlotY.setSpeed(speed);
 
