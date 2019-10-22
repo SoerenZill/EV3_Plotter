@@ -11,7 +11,7 @@ import lejos.utility.Delay;
  */
 public class MPlotX {
 
-	final double CONVERT_VALUE = 0.125664;
+	final double CONVERT_VALUE = 7.9577473091;
 
 	// Direction pattern
 	public enum Direction {
@@ -19,7 +19,7 @@ public class MPlotX {
 	}
 
 	// Motor: Plotter axis X (Conveyor)
-	RegulatedMotor mPlotX = new EV3LargeRegulatedMotor(MotorPort.A);;
+	RegulatedMotor mPlotX = new EV3LargeRegulatedMotor(MotorPort.A);
 
 	public MPlotX() {
 	}
