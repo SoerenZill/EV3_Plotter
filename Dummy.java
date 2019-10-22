@@ -1,4 +1,6 @@
 import lejos.hardware.lcd.LCD;
+import plot_X.MPlotX;
+import plot_X.MPlotX.Direction;
 import plot_X.SPlotX;
 import plot_Y.MPlotY;
 
@@ -20,9 +22,10 @@ public class Dummy {
 			}
 		}
 
-		// color_sensor.close();
-		MPlotY PenY = new MPlotY();
+		MPlotX ConvX = new MPlotX();
 
+		ConvX.move(Direction.forward, 360, 0);
+		MPlotY PenY = new MPlotY();
 		// TODO Auto-generated method stub
 	}
 	// TODO Auto-generated method stub
