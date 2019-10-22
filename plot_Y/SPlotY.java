@@ -44,7 +44,7 @@ class SPlotY extends Thread{
         //initialise sPlotYResult
         sPlotYResult = new float[sensorMode.sampleSize()];
 
-        LCD.drawString("SPlotY init", 2, 2);
+        LCD.drawString("SPlotY init", 1, 1);
 
         //Start checkSensor-Thread
         this.start();
@@ -64,7 +64,6 @@ class SPlotY extends Thread{
 
             //Check if sensor is touched
             if (sPlotYResult[0] > 0.5 /*value ether 0.0 or 1.0*/ ) {
-                LCD.drawString("Sensor detected", 1, 5);
                 //Stop movement
                 getMPlotY().stopMPlotY();
                 getMPlotY().moveMPlotYByDegree(MPlotY.Direction.backward, 200, 50);
