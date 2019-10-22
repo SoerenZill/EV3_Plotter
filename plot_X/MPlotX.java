@@ -38,7 +38,7 @@ public class MPlotX {
 
 		mPlotX.setSpeed(200);
 
-		int degree = (int) (mm / CONVERT_VALUE);
+		int degree = (int) (mm * CONVERT_VALUE);
 
 		if (dir == Direction.forward) {
 			mPlotX.rotate(degree);
