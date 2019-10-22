@@ -46,8 +46,8 @@ public class MPlotY {
 
     /**
      *
-     * @param direction
-     * @param speed
+     * @param direction direction of movement, use .forward / .backward
+     * @param speed speed of movement, range 0..5 TODO change to proper value
      */
     void moveMPlotY(Direction direction, int speed) {
 

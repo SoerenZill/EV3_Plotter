@@ -7,7 +7,7 @@ import lejos.hardware.sensor.SensorMode;
 /**
  * Created by Alexander Schmidt on 2019-10-08.
  */
-class SPlotY {
+class SPlotY extends Thread{
 
     //Sensor: Plotter axis Y, touch sensor, detecting basic position
     private EV3TouchSensor sPlotY;
@@ -19,12 +19,17 @@ class SPlotY {
     } //Getter
 
     //Run-condition for thread: checkSensor
-    private boolean checkSPlotY = true;
+    boolean checkSPlotY = true;
 
+    //Set SensorMode for sPlotY
+    SensorMode sensorMode;
+
+    //Create an array to store sensor data
+    float[] sPlotYResult;
 
     /**
      * Constructor: SPlotY
-     * @param mPlotY
+     * @param mPlotY Motor The sensor works with
      */
     public SPlotY(MPlotY mPlotY) {
 
@@ -32,39 +37,38 @@ class SPlotY {
 
         //initialise sPlotY
         sPlotY = new EV3TouchSensor(SensorPort.S4);
-        //Set SensorMode for sPlotY
-        SensorMode sensorMode = sPlotY.getTouchMode();
+        //initialise sensorMode
+        sensorMode = sPlotY.getTouchMode();
 
-        //Create an array to store sensor data
-        float[] sPlotYResult = new float[sensorMode.sampleSize()];
+        //initialise sPlotYResult
+        sPlotYResult = new float[sensorMode.sampleSize()];
 
 
-        /**
-         * (background)
-         * Thread checking if sPlotY is touched.
-         * If touched mPlotY stops.
-         */
-        Runnable checkSensor = () -> {
-            while (checkSPlotY) {
 
-                //Get sensor value; value will be stored in sPlotResult[0]
-                sensorMode.fetchSample(sPlotYResult, 0);
-
-                //Check if sensor is touched
-                if (sPlotYResult[0] == 5.5 /*TODO change to proper value*/ ) {
-                    //Stop movement
-                    getMPlotY().stopMPlotY();
-                }
-
-                try {
-                    Thread.sleep(10);
-                }catch (InterruptedException ignored) { }
-            }
-        };
         //Start checkSensor-Thread
-        new Thread(checkSensor).start();
+        this.start();
     }
 
+    /**
+     * (background)
+     * Thread checking if sPlotY is touched.
+     * If touched mPlotY stops.
+     */
+    public void run(){
+        while (checkSPlotY) {
 
+            //Get sensor value; value will be stored in sPlotResult[0]
+            sensorMode.fetchSample(sPlotYResult, 0);
 
+            //Check if sensor is touched
+            if (sPlotYResult[0] == 5.5 /*TODO change to proper value*/ ) {
+                //Stop movement
+                getMPlotY().stopMPlotY();
+            }
+
+            try {
+                Thread.sleep(10);
+            }catch (InterruptedException ignored) { }
+        }
+    }
 }
