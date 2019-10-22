@@ -34,7 +34,7 @@ public class MPlotY {
 
         sPlotY = new SPlotY(this);
 
-        moveMPlotY(Direction.forward, 20);  //Move to ground position
+        moveMPlotY(Direction.forward, 100);  //Move to ground position
 
     }
 
