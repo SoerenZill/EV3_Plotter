@@ -45,6 +45,25 @@ class SPlotY extends Thread{
         sPlotYResult = new float[sensorMode.sampleSize()];
 
 
+        //TODO delete loop
+        while (checkSPlotY) {
+
+            //Get sensor value; value will be stored in sPlotResult[0]
+            sensorMode.fetchSample(sPlotYResult, 0);
+
+            //Check if sensor is touched
+            if (sPlotYResult[0] == 5.5 /*TODO change to proper value*/ ) {
+                LCD.drawString("Sensor detected " + sPlotYResult[0], 1, 1);
+                //Stop movement
+                getMPlotY().stopMPlotY();
+            }
+
+            try {
+                Thread.sleep(10);
+            }catch (InterruptedException ignored) { }
+        }
+
+
 
         //Start checkSensor-Thread
         this.start();
@@ -56,7 +75,7 @@ class SPlotY extends Thread{
      * If touched mPlotY stops.
      */
     public void run(){
-        LCD.drawString("Tread started", 1, 1);
+        LCD.drawString("Thread started", 1, 1);
         while (checkSPlotY) {
 
             //Get sensor value; value will be stored in sPlotResult[0]
