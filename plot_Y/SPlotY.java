@@ -8,70 +8,72 @@ import lejos.hardware.sensor.SensorMode;
 /**
  * Created by Alexander Schmidt on 2019-10-08.
  */
-class SPlotY extends Thread{
+class SPlotY extends Thread {
 
-    //Sensor: Plotter axis Y, touch sensor, detecting basic position
-    private EV3TouchSensor sPlotY;
+	// Sensor: Plotter axis Y, touch sensor, detecting basic position
+	private EV3TouchSensor sPlotY;
 
-    //MPlotY Object
-    private MPlotY mPlotY;
-    MPlotY getMPlotY() {
-        return mPlotY;
-    } //Getter
+	// MPlotY Object
+	private MPlotY mPlotY;
 
-    //Run-condition for thread: checkSensor
-    boolean checkSPlotY = true;
+	MPlotY getMPlotY() {
+		return mPlotY;
+	} // Getter
 
-    //Set SensorMode for sPlotY
-    SensorMode sensorMode;
+	// Run-condition for thread: checkSensor
+	boolean checkSPlotY = true;
 
-    //Create an array to store sensor data
-    float[] sPlotYResult;
+	// Set SensorMode for sPlotY
+	SensorMode sensorMode;
 
-    /**
-     * Constructor: SPlotY
-     * @param mPlotY Motor The sensor works with
-     */
-    public SPlotY(MPlotY mPlotY) {
+	// Create an array to store sensor data
+	float[] sPlotYResult;
 
-        this.mPlotY = mPlotY;
+	/**
+	 * Constructor: SPlotY
+	 * 
+	 * @param mPlotY Motor The sensor works with
+	 */
+	public SPlotY(MPlotY mPlotY) {
 
-        //initialise sPlotY
-        sPlotY = new EV3TouchSensor(SensorPort.S4);
-        //initialise sensorMode
-        sensorMode = sPlotY.getTouchMode();
+		this.mPlotY = mPlotY;
 
-        //initialise sPlotYResult
-        sPlotYResult = new float[sensorMode.sampleSize()];
+		// initialise sPlotY
+		sPlotY = new EV3TouchSensor(SensorPort.S4);
+		// initialise sensorMode
+		sensorMode = sPlotY.getTouchMode();
 
-        LCD.drawString("SPlotY init", 2, 2);
+		// initialise sPlotYResult
+		sPlotYResult = new float[sensorMode.sampleSize()];
 
-        //Start checkSensor-Thread
-        this.start();
-    }
+		LCD.drawString("SPlotY init", 2, 2);
 
-    /**
-     * (background)
-     * Thread checking if sPlotY is touched.
-     * If touched mPlotY stops.
-     */
-    public void run(){
-        LCD.drawString("Thread started", 1, 1);
-        while (checkSPlotY) {
+		// Start checkSensor-Thread
+		this.start();
+	}
 
-            //Get sensor value; value will be stored in sPlotResult[0]
-            sensorMode.fetchSample(sPlotYResult, 0);
+	/**
+	 * (background) Thread checking if sPlotY is touched. If touched mPlotY stops.
+	 */
+	@Override
+	public void run() {
+		LCD.drawString("Thread started", 1, 1);
+		while (checkSPlotY) {
 
-            //Check if sensor is touched
-            if (sPlotYResult[0] > 0.5 /*value ether 0.0 or 1.0*/ ) {
-                LCD.drawString("Sensor detected", 1, 5);
-                //Stop movement
-                getMPlotY().stopMPlotY();
-            }
+			// Get sensor value; value will be stored in sPlotResult[0]
+			sensorMode.fetchSample(sPlotYResult, 0);
 
-            try {
-                Thread.sleep(10);
-            }catch (InterruptedException ignored) { }
-        }
-    }
+			// Check if sensor is touched
+			if (sPlotYResult[0] > 0.5 /* value ether 0.0 or 1.0 */ ) {
+				// Stop movement
+				getMPlotY().stopMPlotY();
+			}
+
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException ignored) {
+				System.out.println(ignored);
+			}
+		}
+	}
 }
