@@ -9,7 +9,7 @@ import lejos.robotics.RegulatedMotor;
  */
 public class MPlotY {
 
-    final double CONVERT_VALUE = 31.25;
+    final double CONVERT_VALUE = 9.947183943;
 
     // Direction pattern, forward:  -> Brick, backward:  <- brick
     public enum Direction {
