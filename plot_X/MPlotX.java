@@ -11,6 +11,8 @@ import lejos.utility.Delay;
  */
 public class MPlotX {
 
+	final double CONVERT_VALUE = 0.1357168;
+
 	// Direction pattern
 	public enum Direction {
 		forward, backward
@@ -36,10 +38,12 @@ public class MPlotX {
 
 		mPlotX.setSpeed(200);
 
+		int degree = (int) (mm / CONVERT_VALUE);
+
 		if (dir == Direction.forward) {
-			mPlotX.rotate(mm);
+			mPlotX.rotate(degree);
 		} else if (dir == Direction.backward) {
-			mPlotX.rotate((mm * -1));
+			mPlotX.rotate((degree * -1));
 		}
 	}
 
