@@ -11,7 +11,7 @@ import lejos.utility.Delay;
  */
 public class MPlotX {
 
-	final double CONVERT_VALUE = 7.9577473091;
+	final double CONVERT_VALUE = 8.289320114;
 
 	// Direction pattern
 	public enum Direction {
