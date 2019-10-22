@@ -28,7 +28,7 @@ public class MPlotY {
      * 2. go to basic position
      */
     public MPlotY() {
-        mPlotY = new EV3LargeRegulatedMotor(MotorPort.A);
+        mPlotY = new EV3LargeRegulatedMotor(MotorPort.C);
 
         sPlotY = new SPlotY(this);
 

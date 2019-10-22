@@ -1,5 +1,6 @@
 package plot_Y;
 
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.SensorMode;
@@ -43,7 +44,7 @@ class SPlotY extends Thread{
         //initialise sPlotYResult
         sPlotYResult = new float[sensorMode.sampleSize()];
 
-
+        LCD.drawString("SPlotY init", 2, 2);
 
         //Start checkSensor-Thread
         this.start();
@@ -55,13 +56,15 @@ class SPlotY extends Thread{
      * If touched mPlotY stops.
      */
     public void run(){
+        LCD.drawString("Thread started", 1, 1);
         while (checkSPlotY) {
 
             //Get sensor value; value will be stored in sPlotResult[0]
             sensorMode.fetchSample(sPlotYResult, 0);
 
             //Check if sensor is touched
-            if (sPlotYResult[0] == 5.5 /*TODO change to proper value*/ ) {
+            if (sPlotYResult[0] > 0.5 /*value ether 0.0 or 1.0*/ ) {
+                LCD.drawString("Sensor detected", 1, 5);
                 //Stop movement
                 getMPlotY().stopMPlotY();
             }
