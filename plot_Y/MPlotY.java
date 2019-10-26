@@ -6,9 +6,12 @@ import lejos.robotics.RegulatedMotor;
 
 /**
  * Created by Alexander Schmidt on 2019-10-08.
+ *
+ * Class for motor PlotY (PenY). The motor needs to be connected to Port C!
  */
 public class MPlotY {
 
+    // 1200 degree / (38.2 * pi) +- correction
     final double CONVERT_VALUE = 9.564599945;
 
     // Direction pattern, forward:  -> Brick, backward:  <- brick
@@ -30,8 +33,8 @@ public class MPlotY {
      * 2. go to basic position
      */
     public MPlotY() {
-        mPlotY = new EV3LargeRegulatedMotor(MotorPort.C);
 
+        mPlotY = new EV3LargeRegulatedMotor(MotorPort.C);
         sPlotY = new SPlotY(this);
 
         moveMPlotY(Direction.forward, 100);  //Move to ground position
@@ -39,7 +42,7 @@ public class MPlotY {
     }
 
     /**
-     * Stop movement, axis Y
+     * Stop movement axis Y
      */
     public void stopMPlotY() {
         mPlotY.stop();
@@ -47,6 +50,8 @@ public class MPlotY {
 
 
     /**
+     * Moves axis Y (PenY) with given speed. Movement does NOT stop automatically!
+     * Be careful using this function. There's only a limit for moving forward. Moving backward may damage the Plotter!
      *
      * @param direction direction of movement, use .forward / .backward
      * @param speed speed of movement, range 0..5 TODO change to proper value
@@ -62,23 +67,38 @@ public class MPlotY {
         }
     }
 
+    /**
+     *  Move mPlotY (PenY)
+     *
+     * @param dir Direction of movement, use .forward / .backward
+     * @param mm length of movement in millimeter
+     * @param ms not used yet TODO use it
+     */
     public void move(Direction dir, int mm, int ms) {
 
-        mPlotY.setSpeed(200);
+        //TODO use time (ms) to calculate the speed
+        int speed = 200;
 
+        //Convert mm to degree
         int degree = (int) (mm * CONVERT_VALUE);
 
-        if (dir == Direction.forward) {
-            mPlotY.rotate(degree);
-        } else if (dir == Direction.backward) {
-            mPlotY.rotate((degree * -1));
-        }
+        //Move mPlotY
+        moveMPlotYByDegree(dir, speed, degree);
     }
 
+    /**
+     * Move mPlotY (PenY) by angle in degree with given speed.
+     *
+     * @param direction
+     * @param speed
+     * @param angle
+     */
     public void moveMPlotYByDegree(Direction direction, int speed, int angle){
 
+        //Set speed of mPlotY
         mPlotY.setSpeed(speed);
 
+        //Apply direction
         if (direction == Direction.forward) {
             mPlotY.rotate(angle);
         }else if (direction == Direction.backward){

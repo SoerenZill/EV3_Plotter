@@ -7,6 +7,8 @@ import lejos.hardware.sensor.SensorMode;
 
 /**
  * Created by Alexander Schmidt on 2019-10-08.
+ *
+ * Class for sensor PlotY (penY). The sensor needs to be connected to Port 4!
  */
 class SPlotY extends Thread{
 
@@ -30,6 +32,10 @@ class SPlotY extends Thread{
 
     /**
      * Constructor: SPlotY
+     *
+     * 1. initialise sPlotY, sensorMode, sPlotYResult
+     * 2. starts a Thread checking for sensor state.
+     *
      * @param mPlotY Motor The sensor works with
      */
     public SPlotY(MPlotY mPlotY) {
@@ -67,17 +73,20 @@ class SPlotY extends Thread{
                 getMPlotY().stopMPlotY();
                 //Move MPlotY backward to avoid touching the sensor permanently
                 getMPlotY().moveMPlotYByDegree(MPlotY.Direction.backward, 200, 50);
+
+                //TODO find out what this is for
                 try {
                     Thread.sleep(100);
                 }catch (InterruptedException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             }
 
+            //Reduce processor stress of this thread
             try {
                 Thread.sleep(10);
             }catch (InterruptedException ex) {
-                System.out.println(ex);
+                System.out.println(ex.getMessage());
             }
         }
     }
