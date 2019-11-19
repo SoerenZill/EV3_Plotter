@@ -36,22 +36,32 @@ public class MPlotX {
 	}
 
 	/**
-	 * Move mPlotX (Conveyor)
+	 *  Move mPlotX (Conveyor)
 	 *
 	 * @param dir Direction of movement, use .forward / .backward
-	 * @param mm  length of movement in millimeter
-	 * @param ms  not used yet TODO use it
+	 * @param mm length of movement in millimeter
+	 * @param ms time for movement; if 0 or negative uses maxSpeed
 	 */
 	public void move(Direction dir, int mm, int ms) {
 
-		// Convert mm to degree
+		//Convert mm to degree
 		int degree = (int) (mm * CONVERT_VALUE);
 
-		// Calculate speed in degree per second, if ms==0 : use maxSpeed
-		int speed = (degree / (ms != 0 ? (int) (ms / 1000) : (int) mPlotX.getMaxSpeed()));
+		//Calculate speed in degree per second, if ms==0 : use maxSpeed
+		int speed;
+
+		if(ms <= 0){ // avoid division by zero
+			speed = (int) mPlotX.getMaxSpeed();
+		}else if((degree / (ms / 1000)) > mPlotX.getMaxSpeed()){ // avoid getting over maxSpeed
+			speed = (int) mPlotX.getMaxSpeed();
+		}else{ // normal case
+			speed = degree / (ms / 1000);
+		}
+
+		//set Speed
 		mPlotX.setSpeed(speed);
 
-		// Apply direction
+		//Apply direction
 		if (dir == Direction.forward) {
 			mPlotX.rotate(degree);
 		} else if (dir == Direction.backward) {
@@ -59,10 +69,12 @@ public class MPlotX {
 		}
 	}
 
+
 	public int getLocation() {
-		// mPlotX.resetTachoCount();
+		//mPlotX.resetTachoCount();
 		return mPlotX.getTachoCount();
 	}
+
 
 	public void MoveXDegreeInYDegreePerSecond(int degree, int degreePerSecond) {
 		LCD.drawString(mPlotX.getMaxSpeed() + "", 0, 4);
