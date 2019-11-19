@@ -35,7 +35,7 @@ public class MPlotX {
 	 */
 	public void throwOutPaper() {
 		if(paperPos >= 0) {
-			move(Direction.backward, paperPos, 0);
+			move(Direction.backward, paperPos, 10000);
 		}else {
 			paperPos = 0;
 		}
