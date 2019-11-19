@@ -80,7 +80,18 @@ public class MPlotY {
         int degree = (int) (mm * CONVERT_VALUE);
 
         //Calculate speed in degree per second, if ms==0 : use maxSpeed
-        int speed = (degree / (ms != 0 ? (ms / 1000) : (int) mPlotY.getMaxSpeed() ));
+        int speed;
+
+        if(ms <= 0){ // avoid division by zero
+            speed = (int) mPlotY.getMaxSpeed();
+        }else if((degree / (ms / 1000)) > mPlotY.getMaxSpeed()){ // avoid getting over maxSpeed
+            speed = (int) mPlotY.getMaxSpeed();
+        }else{ // normal case
+            speed = degree / (ms / 1000);
+        }
+
+        //set Speed
+        mPlotY.setSpeed(speed);
 
         //Move mPlotY
         moveMPlotYByDegree(dir, speed, degree);
