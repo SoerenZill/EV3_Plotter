@@ -40,7 +40,7 @@ public class MPlotX {
 	 *
 	 * @param dir Direction of movement, use .forward / .backward
 	 * @param mm length of movement in millimeter
-	 * @param ms not used yet TODO use it
+	 * @param ms time for movement; if 0 or negative uses maxSpeed
 	 */
 	public void move(Direction dir, int mm, int ms) {
 
@@ -48,7 +48,17 @@ public class MPlotX {
 		int degree = (int) (mm * CONVERT_VALUE);
 
 		//Calculate speed in degree per second, if ms==0 : use maxSpeed
-		int speed = (degree / (ms != 0 ? (ms / 1000) : (int) mPlotX.getMaxSpeed() ));
+		int speed;
+
+		if(ms <= 0){ // avoid division by zero
+			speed = (int) mPlotX.getMaxSpeed();
+		}else if((degree / (ms / 1000)) > mPlotX.getMaxSpeed()){ // avoid getting over maxSpeed
+			speed = (int) mPlotX.getMaxSpeed();
+		}else{ // normal case
+			speed = degree / (ms / 1000);
+		}
+
+		//set Speed
 		mPlotX.setSpeed(speed);
 
 		//Apply direction
