@@ -28,24 +28,50 @@ public class Dummy {
 		// if (testTouchResult[0] == 0.5)
 
 		while (true) {
+			int r = 10;
+			int y = 10;
 
-			PenZ.penDown();
+			int posX = 0, posY = 0;
+
 			PenZ.penUp();
 
 			float[] rgb = ColSensor.getRGBCode();
 			if (rgb[0] >= 0.1 && rgb[1] >= 0.1 && rgb[2] >= 0.1) {
+
+				PenZ.penUp();
+
+				// insert paper
 				ConvX.move(MPlotX.Direction.forward, 70, 3000); // mm in ms
 
-				synchro(70, 20, 5000);
-				synchro(-70, 0, 5000);
-				synchro(0, -20, 5000);
+				PenZ.penDown();
+
+				synchro(r, 0, 5000);
+
+				for (int x = 0; x < r; x++) {
+					y = (int) (Math.sqrt((Math.pow(r, 2) - Math.pow(x, 2))));
+					printLCD(Integer.toString(y));
+
+					synchro(x - posX, y - posY, 2000);
+
+					posX = x;
+					posY = y;
+
+				}
+
+				// synchro(x, y, 5000);
+
+				// synchro(70, 80, 5000);
+				// synchro(-70, 0, 5000);
+				// synchro(0, -80, 5000);
+
+				PenZ.penUp();
 
 				try {
 					Thread.sleep(10);
 				} catch (Exception e) {
 					System.err.println(e);
 				}
-				ConvX.move(MPlotX.Direction.backward, 300, 10000);
+				ConvX.throwOutPaper();
 			}
 
 		}
@@ -60,8 +86,6 @@ public class Dummy {
 
 		ConvX.mPlotX.synchronizeWith(new RegulatedMotor[] { PenY.mPlotY });
 		ConvX.mPlotX.startSynchronization();
-		// ConvX.mPlotX.rotate(-360, true);
-		// PenY.mPlotY.rotate(-360, true);
 
 		PenY.move(MPlotY.Direction.backward, y_mm, ms);
 		ConvX.move(MPlotX.Direction.forward, x_mm, ms);
