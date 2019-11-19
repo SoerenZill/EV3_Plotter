@@ -3,14 +3,14 @@ import lejos.robotics.RegulatedMotor;
 import plot_X.MPlotX;
 import plot_X.SPlotX;
 import plot_Y.MPlotY;
+import plot_Z.MPlotZ;
 
 public class Dummy {
 
 	static SPlotX ColSensor = new SPlotX();
 	static MPlotX ConvX = new MPlotX();
 	static MPlotY PenY = new MPlotY();
-
-	// static MPlotZ
+	static MPlotZ PenZ = new MPlotZ();
 
 	static void printLCD(String msg) {
 		LCD.clear();
@@ -28,6 +28,10 @@ public class Dummy {
 		// if (testTouchResult[0] == 0.5)
 
 		while (true) {
+
+			PenZ.penUp();
+			PenZ.penDown();
+
 			float[] rgb = ColSensor.getRGBCode();
 			if (rgb[0] >= 0.1 && rgb[1] >= 0.1 && rgb[2] >= 0.1) {
 				ConvX.move(MPlotX.Direction.forward, 70, 3000); // mm in ms
