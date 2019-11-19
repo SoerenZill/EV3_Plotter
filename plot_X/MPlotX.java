@@ -16,6 +16,8 @@ public class MPlotX {
 	//
 	final double CONVERT_VALUE = 8.289320114;
 
+	private int paperPos = 300;
+
 	// Direction pattern
 	public enum Direction {
 		forward, backward
@@ -25,14 +27,18 @@ public class MPlotX {
 	public RegulatedMotor mPlotX = new EV3LargeRegulatedMotor(MotorPort.C);
 
 	public MPlotX() {
+		throwOutPaper();
 	}
 
 	/**
 	 * Pulls the paper out of the Plotter
 	 */
 	public void throwOutPaper() {
-		mPlotX.setSpeed(400);
-		mPlotX.rotate(-2500);
+		if(paperPos >= 0) {
+			move(Direction.backward, paperPos, 0);
+		}else {
+			paperPos = 0;
+		}
 	}
 
 	/**
@@ -64,8 +70,10 @@ public class MPlotX {
 		//Apply direction
 		if (dir == Direction.forward) {
 			mPlotX.rotate(degree);
+			paperPos = paperPos + mm;
 		} else if (dir == Direction.backward) {
 			mPlotX.rotate((degree * -1));
+			paperPos = paperPos - mm;
 		}
 	}
 
