@@ -44,12 +44,12 @@ public class MPlotX {
 	 */
 	public void move(Direction dir, int mm, int ms) {
 
-		// TODO Add calculation for proper movement
-
-		mPlotX.setSpeed(200);
-
 		//Convert mm to degree
 		int degree = (int) (mm * CONVERT_VALUE);
+
+		//Calculate speed in degree per second
+		int speed = (degree / ms * 1000);
+		mPlotX.setSpeed(speed);
 
 		//Apply direction
 		if (dir == Direction.forward) {
