@@ -28,10 +28,8 @@ public class Dummy {
 		// if (testTouchResult[0] == 0.5)
 
 		while (true) {
-			int r = 10;
-			int y = 10;
-
-			int posX = 0, posY = 0;
+			int r = 100;
+			int y = 0, y2 = 0;
 
 			PenZ.penUp();
 
@@ -49,12 +47,11 @@ public class Dummy {
 
 				for (int x = 0; x < r; x++) {
 					y = (int) (Math.sqrt((Math.pow(r, 2) - Math.pow(x, 2))));
+					y2 = (int) (Math.sqrt((Math.pow(r, 2) - Math.pow(x + 1, 2))));
+
 					printLCD(Integer.toString(y));
 
-					synchro(x - posX, y - posY, 2000);
-
-					posX = x;
-					posY = y;
+					synchro(1, y2 - y, 700);
 
 				}
 
