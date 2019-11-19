@@ -22,7 +22,7 @@ public class MPlotX {
 	}
 
 	// Motor: Plotter axis X (Conveyor)
-	RegulatedMotor mPlotX = new EV3LargeRegulatedMotor(MotorPort.C);
+	public RegulatedMotor mPlotX = new EV3LargeRegulatedMotor(MotorPort.C);
 
 	public MPlotX() {
 	}

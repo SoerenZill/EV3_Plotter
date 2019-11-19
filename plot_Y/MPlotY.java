@@ -21,7 +21,7 @@ public class MPlotY {
     }
 
     //Motor: Plotter axis Y
-    RegulatedMotor mPlotY;
+    public RegulatedMotor mPlotY;
 
     //Sensor: Plotter axis Y, touch sensor, detecting basic position
     SPlotY sPlotY;
