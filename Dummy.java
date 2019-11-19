@@ -29,14 +29,16 @@ public class Dummy {
 
 		while (true) {
 
-			PenZ.penUp();
 			PenZ.penDown();
+			PenZ.penUp();
 
 			float[] rgb = ColSensor.getRGBCode();
 			if (rgb[0] >= 0.1 && rgb[1] >= 0.1 && rgb[2] >= 0.1) {
 				ConvX.move(MPlotX.Direction.forward, 70, 3000); // mm in ms
 
 				synchro(70, 20, 5000);
+				synchro(-70, 0, 5000);
+				synchro(0, -20, 5000);
 
 				try {
 					Thread.sleep(10);
