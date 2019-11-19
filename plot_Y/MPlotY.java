@@ -76,11 +76,11 @@ public class MPlotY {
      */
     public void move(Direction dir, int mm, int ms) {
 
-        //TODO use time (ms) to calculate the speed
-        int speed = 200;
-
         //Convert mm to degree
         int degree = (int) (mm * CONVERT_VALUE);
+
+        //Calculate speed in degree per second, if ms==0, use maxSpeed
+        int speed = (degree / (ms != 0 ? (ms * 1000) : (int) mPlotY.getMaxSpeed() ));
 
         //Move mPlotY
         moveMPlotYByDegree(dir, speed, degree);
