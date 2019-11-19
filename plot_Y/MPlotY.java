@@ -7,7 +7,7 @@ import lejos.robotics.RegulatedMotor;
 /**
  * Created by Alexander Schmidt on 2019-10-08.
  *
- * Class for motor PlotY (PenY). The motor needs to be connected to Port C!
+ * Class for motor PlotY (PenY). The motor needs to be connected to Port A!
  */
 public class MPlotY {
 
@@ -34,7 +34,7 @@ public class MPlotY {
      */
     public MPlotY() {
 
-        mPlotY = new EV3LargeRegulatedMotor(MotorPort.C);
+        mPlotY = new EV3LargeRegulatedMotor(MotorPort.A);
         sPlotY = new SPlotY(this);
 
         moveMPlotY(Direction.forward, 100);  //Move to ground position

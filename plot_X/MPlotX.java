@@ -8,6 +8,8 @@ import lejos.utility.Delay;
 
 /**
  * Created by Alexander Schmidt on 2019-10-22.
+ *
+ * Class for motor PlotX (Conveyor). The motor needs to be connected to Port C!
  */
 public class MPlotX {
 
@@ -20,7 +22,7 @@ public class MPlotX {
 	}
 
 	// Motor: Plotter axis X (Conveyor)
-	RegulatedMotor mPlotX = new EV3LargeRegulatedMotor(MotorPort.A);
+	RegulatedMotor mPlotX = new EV3LargeRegulatedMotor(MotorPort.C);
 
 	public MPlotX() {
 	}
