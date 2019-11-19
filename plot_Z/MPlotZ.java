@@ -11,7 +11,7 @@ import lejos.robotics.RegulatedMotor;
  */
 public class MPlotZ {
 
-    int positionPenDown = 0; //TODO change to proper value
+    int positionPenDown = 180; //TODO change to proper value
     int positionPenUp = 0; //TODO change to proper value
 
     //Motor: Plotter axis Z (Pen)
