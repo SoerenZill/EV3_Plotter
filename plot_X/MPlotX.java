@@ -47,8 +47,8 @@ public class MPlotX {
 		//Convert mm to degree
 		int degree = (int) (mm * CONVERT_VALUE);
 
-		//Calculate speed in degree per second, if ms==0, use maxSpeed
-		int speed = (degree / (ms != 0 ? (ms * 1000) : (int) mPlotX.getMaxSpeed() ));
+		//Calculate speed in degree per second, if ms==0 : use maxSpeed
+		int speed = (degree / (ms != 0 ? (ms / 1000) : (int) mPlotX.getMaxSpeed() ));
 		mPlotX.setSpeed(speed);
 
 		//Apply direction
